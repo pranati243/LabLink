@@ -31,6 +31,8 @@ services:
       dockerfile: Dockerfile
     container_name: lablink-backend
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
       FLASK_ENV: ${FLASK_ENV:-development}
       DATABASE_URL: postgresql://${POSTGRES_USER:-lablink_user}:${POSTGRES_PASSWORD:-lablink_password}@db:5432/${POSTGRES_DB:-lablink}
