@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 
 # Load environment variables from .env file FIRST before any imports
+# This MUST happen at module level so Gunicorn picks it up
 from dotenv import load_dotenv
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path, override=True)
