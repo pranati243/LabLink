@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     container_name: lablink-backend
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
       FLASK_ENV: ${FLASK_ENV:-production}
       DATABASE_URL: ${DATABASE_URL}
