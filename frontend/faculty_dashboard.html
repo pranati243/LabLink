@@ -8,37 +8,70 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: #e9eef7;
+            font-family: 'Segoe UI', sans-serif;
+            position: relative;
+        }
+        /* PCB IoT Background */
+        .iot-bg {
+            position: fixed;
+            inset: 0;
+            background-image: url('https://media.istockphoto.com/id/1186712139/vector/internet-of-things-vector-icons-isolated-on-white-background-iot-icon-set-for-web-mobile.jpg?s=612x612&w=0&k=20&c=4SJ6UoV2R51NUDY0NLWG_ncUpzMHdiPs0LUXghCfs5w=');
+            background-size: 900px;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
         }
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #1d3f73;
+            z-index: 2;
         }
         .navbar-brand {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .dashboard-header {
-            background: white;
-            padding: 20px;
+            background: #fff;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        /* IoT chip icon subtle header flair */
+        .iot-chip-header {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            top: -20px;
+            right: -20px;
+            opacity: 0.2;
         }
         .card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
             margin-bottom: 20px;
+            background: #fff;
+            position: relative;
+            z-index: 2;
         }
         .card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #1d3f73;
+            color: #fff;
             font-weight: 600;
-            border-radius: 10px 10px 0 0 !important;
+            border-radius: 12px 12px 0 0 !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .badge-status {
             font-size: 0.85rem;
-            padding: 5px 10px;
+            padding: 4px 10px;
         }
         .status-pending {
             background-color: #ffc107;
@@ -65,6 +98,7 @@
     </style>
 </head>
 <body>
+    <div class="iot-bg"></div>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-dark">
         <div class="container-fluid">
@@ -85,6 +119,7 @@
     <div class="container-fluid mt-4">
         <!-- Dashboard Header -->
         <div class="dashboard-header">
+            <img src="https://cdn-icons-png.flaticon.com/512/2752/2752878.png" class="iot-chip-header" alt="IoT Icon" />
             <h2>Faculty Dashboard</h2>
             <p class="text-muted mb-0">Manage components, approve requests, and view transaction logs</p>
         </div>
