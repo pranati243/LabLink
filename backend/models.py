@@ -11,16 +11,16 @@ db = SQLAlchemy()
 
 class UserRole(enum.Enum):
     """User role enumeration"""
-    STUDENT = "student"
-    FACULTY = "faculty"
+    student = "student"
+    faculty = "faculty"
 
 
 class RequestStatus(enum.Enum):
     """Request status enumeration"""
-    PENDING = "Pending"
-    APPROVED = "Approved"
-    REJECTED = "Rejected"
-    RETURNED = "Returned"
+    Pending = "Pending"
+    Approved = "Approved"
+    Rejected = "Rejected"
+    Returned = "Returned"
 
 
 class ActionType(enum.Enum):
@@ -36,9 +36,9 @@ class ActionType(enum.Enum):
 
 class EntityType(enum.Enum):
     """Transaction entity type enumeration"""
-    COMPONENT = "Component"
-    REQUEST = "Request"
-    USER = "User"
+    Component = "Component"
+    Request = "Request"
+    User = "User"
 
 
 class User(db.Model):
@@ -114,7 +114,7 @@ class Request(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
     component_id = db.Column(db.Integer, db.ForeignKey('components.id'), nullable=False, index=True)
     quantity = db.Column(db.Integer, nullable=False)
-    status = db.Column(SQLEnum(RequestStatus), nullable=False, default=RequestStatus.PENDING, index=True)
+    status = db.Column(SQLEnum(RequestStatus), nullable=False, default=RequestStatus.Pending, index=True)
     rejection_reason = db.Column(db.Text)
     requested_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     processed_at = db.Column(db.DateTime)

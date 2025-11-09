@@ -142,7 +142,7 @@ def get_transactions():
                 }
             
             # Add entity information based on entity type
-            if txn.entity_type == EntityType.COMPONENT:
+            if txn.entity_type == EntityType.Component:
                 component = Component.query.get(txn.entity_id)
                 if component:
                     txn_dict['entity'] = {
@@ -150,7 +150,7 @@ def get_transactions():
                         'id': component.id,
                         'name': component.name
                     }
-            elif txn.entity_type == EntityType.REQUEST:
+            elif txn.entity_type == EntityType.Request:
                 req = RequestModel.query.get(txn.entity_id)
                 if req:
                     txn_dict['entity'] = {

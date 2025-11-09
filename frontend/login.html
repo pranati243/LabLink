@@ -1,117 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LabLink - Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-        }
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-header h1 {
-            color: #667eea;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .login-header p {
-            color: #6c757d;
-        }
-        .btn-login {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            padding: 12px;
-            font-weight: 600;
-        }
-        .btn-login:hover {
-            opacity: 0.9;
-        }
-        .alert {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LabLink - Login</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #e9eef7;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Soft IoT Circuit Background */
+    .iot-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://media.istockphoto.com/id/1186712139/vector/internet-of-things-vector-icons-isolated-on-white-background-iot-icon-set-for-web-mobile.jpg?s=612x612&w=0&k=20&c=4SJ6UoV2R51NUDY0NLWG_ncUpzMHdiPs0LUXghCfs5w='); /* subtle PCB pattern */
+      background-size: 700px;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    .login-card {
+      position: relative;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 32px;
+      width: 100%;
+      max-width: 430px;
+      border: 1px solid #d1d5de;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+    }
+
+    .logo-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 26px;
+      margin-bottom: 18px;
+    }
+
+    .logo-row img {
+      height: 58px;
+    }
+
+    .lablink-header h1 {
+      font-weight: 700;
+      color: #0b2a55;
+      text-align: center;
+    }
+
+    .lablink-header p {
+      text-align: center;
+      color: #52677e;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    /* IoT Icon Flair */
+    .iot-icon {
+      position: absolute;
+      opacity: 0.22;
+      width: 82px;
+      height: 82px;
+      top: -20px;
+      right: -15px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #0b2a55;
+    }
+
+    .input-group-text {
+      background: #f3f6fb;
+      border: 1px solid #c7cdd8;
+      color: #0b2a55;
+    }
+
+    .form-control {
+      background: #ffffff;
+      border: 1px solid #c7cdd8;
+      color: #0b2a55;
+    }
+
+    .form-control:focus {
+      border-color: #254b8a;
+      box-shadow: 0 0 0 3px rgba(37, 75, 138, 0.25);
+    }
+
+    .btn-login {
+      background: #1d3f73;
+      color: white;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    .btn-login:hover {
+      background: #16325f;
+    }
+
+    #errorAlert {
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h1>LabLink</h1>
-            <p>Laboratory Component Management System</p>
-        </div>
+  <div class="iot-bg"></div>
 
-        <!-- Error Alert -->
-        <div id="errorAlert" class="alert alert-danger" role="alert"></div>
+  <div class="login-card">
 
-        <!-- Login Form -->
-        <form id="loginForm">
-            <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-login w-100">Login</button>
-        </form>
+    <!-- IoT chip icon overlay -->
+    <mg src="https://cdn-icons-png.flaticon.com/512/2752/2752878.png" />
+
+    <!-- Logos -->
+    <div class="logo-row">
+      <img src="https://static.thenounproject.com/png/3564837-200.png" alt="LabLink Logo" />
+      <img src="https://icnte.fcrit.ac.in/images/college_logo1.png" alt="College Logo" />
     </div>
 
-    <script src="config.js"></script>
-    <script src="api.js"></script>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+    <div class="lablink-header">
+      <h1>LabLink</h1>
+      <p>Smart IoT-Integrated Laboratory Component System</p>
+    </div>
 
-            // Get form values
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
+    <div id="errorAlert" class="alert alert-danger"></div>
 
-            // Hide previous errors
-            const errorAlert = document.getElementById('errorAlert');
-            errorAlert.style.display = 'none';
+    <form id="loginForm">
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-person"></i></span>
+          <input type="text" class="form-control" id="username" placeholder="Enter username" required />
+        </div>
+      </div>
 
-            // Validate inputs
-            if (!username || !password) {
-                showError('Please enter both username and password');
-                return;
-            }
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <div class="input-group">
+          <span class="input-group-text"><i class="bi bi-lock"></i></span>
+          <input type="password" class="form-control" id="password" placeholder="Enter password" required />
+        </div>
+      </div>
 
-            try {
-                // Submit login request using AuthAPI
-                const data = await AuthAPI.login(username, password);
+      <button class="btn btn-login w-100" type="submit">Login</button>
+    </form>
+  </div>
 
-                // Redirect to appropriate dashboard based on user role
-                if (data.user.role === 'student') {
-                    window.location.href = 'student_dashboard.html';
-                } else if (data.user.role === 'faculty') {
-                    window.location.href = 'faculty_dashboard.html';
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                showError(error.message || 'Unable to connect to server. Please try again later.');
-            }
-        });
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-        function showError(message) {
-            const errorAlert = document.getElementById('errorAlert');
-            errorAlert.textContent = message;
-            errorAlert.style.display = 'block';
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const errorAlert = document.getElementById('errorAlert');
+
+      errorAlert.style.display = 'none';
+
+      if (!username || !password) {
+        showError('Please enter both username and password');
+        return;
+      }
+
+      try {
+        const data = await AuthAPI.login(username, password);
+
+        if (data.user.role === 'student') {
+          window.location.href = 'student_dashboard.html';
+        } else if (data.user.role === 'faculty') {
+          window.location.href = 'faculty_dashboard.html';
         }
-    </script>
+      } catch (error) {
+        showError(error.message || 'Server error. Try again.');
+      }
+    });
+
+    function showError(message) {
+      const errorAlert = document.getElementById('errorAlert');
+      errorAlert.textContent = message;
+      errorAlert.style.display = 'block';
+    }
+  </script>
 </body>
 </html>

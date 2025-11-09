@@ -28,7 +28,7 @@ def log_request_transaction(user, action_type, request_obj, details=None):
     transaction = Transaction(
         user_id=user.id,
         action_type=action_type,
-        entity_type=EntityType.REQUEST,
+        entity_type=EntityType.Request,
         entity_id=request_obj.id,
         details=details or {}
     )
@@ -118,7 +118,7 @@ def create_request():
             student_id=user.id,
             component_id=component.id,
             quantity=quantity,
-            status=RequestStatus.PENDING
+            status=RequestStatus.Pending
         )
         
         db.session.add(new_request)
@@ -284,7 +284,7 @@ def approve_request(request_id):
             }), 404
         
         # Validate request is in Pending status
-        if request_obj.status != RequestStatus.PENDING:
+        if request_obj.status != RequestStatus.Pending:
             return jsonify({
                 'error': 'Validation error',
                 'message': f'Cannot approve request with status: {request_obj.status.value}. Only Pending requests can be approved.'
@@ -304,7 +304,7 @@ def approve_request(request_id):
         user = get_current_user()
         
         # Update request status to Approved
-        request_obj.status = RequestStatus.APPROVED
+        request_obj.status = RequestStatus.Approved
         request_obj.processed_at = datetime.utcnow()
         request_obj.processed_by = user.id
         
@@ -374,7 +374,7 @@ def reject_request(request_id):
             }), 404
         
         # Validate request is in Pending status
-        if request_obj.status != RequestStatus.PENDING:
+        if request_obj.status != RequestStatus.Pending:
             return jsonify({
                 'error': 'Validation error',
                 'message': f'Cannot reject request with status: {request_obj.status.value}. Only Pending requests can be rejected.'
@@ -388,7 +388,7 @@ def reject_request(request_id):
         user = get_current_user()
         
         # Update request status to Rejected
-        request_obj.status = RequestStatus.REJECTED
+        request_obj.status = RequestStatus.Rejected
         request_obj.processed_at = datetime.utcnow()
         request_obj.processed_by = user.id
         request_obj.rejection_reason = rejection_reason
@@ -454,7 +454,7 @@ def return_request(request_id):
             }), 404
         
         # Validate request is in Approved status
-        if request_obj.status != RequestStatus.APPROVED:
+        if request_obj.status != RequestStatus.Approved:
             return jsonify({
                 'error': 'Validation error',
                 'message': f'Cannot mark request as returned with status: {request_obj.status.value}. Only Approved requests can be returned.'
@@ -474,7 +474,7 @@ def return_request(request_id):
         user = get_current_user()
         
         # Update request status to Returned
-        request_obj.status = RequestStatus.RETURNED
+        request_obj.status = RequestStatus.Returned
         request_obj.returned_at = datetime.utcnow()
         
         # Increase component quantity by returned amount
@@ -510,3 +510,4 @@ def return_request(request_id):
             'error': 'Failed to mark request as returned',
             'message': str(e)
         }), 500
+

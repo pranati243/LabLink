@@ -1,29 +1,6 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database Service
-  db:
-    image: postgres:14-alpine
-    container_name: lablink-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-lablink}
-      POSTGRES_USER: ${POSTGRES_USER:-lablink_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lablink_password}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./backend/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
-      - ./backend/seed_data.sql:/docker-entrypoint-initdb.d/02-seed.sql
-    ports:
-      - "${POSTGRES_PORT:-5432}:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lablink_user} -d ${POSTGRES_DB:-lablink}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - lablink-network
-
   # Flask Backend Service
   backend:
     build:
@@ -32,25 +9,13 @@ services:
     container_name: lablink-backend
     restart: unless-stopped
     environment:
-      FLASK_ENV: ${FLASK_ENV:-development}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-lablink_user}:${POSTGRES_PASSWORD:-lablink_password}@db:5432/${POSTGRES_DB:-lablink}
-      SECRET_KEY: ${SECRET_KEY:-dev-secret-key-change-in-production}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-jwt-secret-change-in-production}
-      JWT_ACCESS_TOKEN_HOURS: ${JWT_ACCESS_TOKEN_HOURS:-1}
-      JWT_REFRESH_TOKEN_DAYS: ${JWT_REFRESH_TOKEN_DAYS:-30}
-      CORS_ORIGINS: ${CORS_ORIGINS:-*}
-      DB_POOL_SIZE: ${DB_POOL_SIZE:-10}
-      DB_MAX_OVERFLOW: ${DB_MAX_OVERFLOW:-20}
-      DB_POOL_RECYCLE: ${DB_POOL_RECYCLE:-3600}
+      FLASK_ENV: ${FLASK_ENV:-production}
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      CORS_ORIGINS: ${CORS_ORIGINS}
     ports:
-      - "${BACKEND_PORT:-5000}:5000"
-    depends_on:
-      db:
-        condition: service_healthy
-    volumes:
-      - ./frontend:/app/frontend:ro
-    networks:
-      - lablink-network
+      - "5000:5000"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
@@ -58,12 +23,3 @@ services:
       retries: 3
       start_period: 40s
 
-# Named volumes for data persistence
-volumes:
-  postgres_data:
-    driver: local
-
-# Network for service communication
-networks:
-  lablink-network:
-    driver: bridge
