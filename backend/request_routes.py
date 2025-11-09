@@ -28,7 +28,7 @@ def log_request_transaction(user, action_type, request_obj, details=None):
     transaction = Transaction(
         user_id=user.id,
         action_type=action_type,
-        entity_type=EntityType.REQUEST,
+        entity_type=EntityType.Request,
         entity_id=request_obj.id,
         details=details or {}
     )
@@ -510,3 +510,4 @@ def return_request(request_id):
             'error': 'Failed to mark request as returned',
             'message': str(e)
         }), 500
+

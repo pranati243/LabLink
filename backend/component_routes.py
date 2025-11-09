@@ -55,7 +55,7 @@ def log_component_transaction(user, action_type, component, details=None):
     transaction = Transaction(
         user_id=user.id,
         action_type=action_type,
-        entity_type=EntityType.COMPONENT,
+        entity_type=EntityType.Component,
         entity_id=component.id,
         details=details or {}
     )

@@ -54,14 +54,14 @@ def app():
         txn1 = Transaction(
             user_id=faculty.id,
             action_type=ActionType.CREATE,
-            entity_type=EntityType.COMPONENT,
+            entity_type=EntityType.Component,
             entity_id=component.id,
             details={'component_name': 'Test Arduino', 'quantity': 10}
         )
         txn2 = Transaction(
             user_id=faculty.id,
             action_type=ActionType.UPDATE,
-            entity_type=EntityType.COMPONENT,
+            entity_type=EntityType.Component,
             entity_id=component.id,
             details={'component_name': 'Test Arduino', 'old_quantity': 10, 'new_quantity': 15}
         )

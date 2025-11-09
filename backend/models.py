@@ -11,16 +11,16 @@ db = SQLAlchemy()
 
 class UserRole(enum.Enum):
     """User role enumeration"""
-    STUDENT = "student"
-    FACULTY = "faculty"
+    student = "student"
+    faculty = "faculty"
 
 
 class RequestStatus(enum.Enum):
     """Request status enumeration"""
-    PENDING = "Pending"
-    APPROVED = "Approved"
-    REJECTED = "Rejected"
-    RETURNED = "Returned"
+    Pending = "Pending"
+    Approved = "Approved"
+    Rejected = "Rejected"
+    Returned = "Returned"
 
 
 class ActionType(enum.Enum):
@@ -36,9 +36,9 @@ class ActionType(enum.Enum):
 
 class EntityType(enum.Enum):
     """Transaction entity type enumeration"""
-    COMPONENT = "Component"
-    REQUEST = "Request"
-    USER = "User"
+    Component = "Component"
+    Request = "Request"
+    User = "User"
 
 
 class User(db.Model):

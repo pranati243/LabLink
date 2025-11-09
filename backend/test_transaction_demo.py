@@ -45,7 +45,7 @@ def test_transaction_logging():
         transaction = log_transaction(
             user_id=user.id,
             action_type=ActionType.CREATE,
-            entity_type=EntityType.COMPONENT,
+            entity_type=EntityType.Component,
             entity_id=component.id,
             details={
                 'component_name': component.name,

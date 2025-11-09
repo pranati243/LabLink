@@ -29,7 +29,7 @@ def log_transaction(user_id, action_type, entity_type, entity_id, details=None):
         log_transaction(
             user_id=1,
             action_type=ActionType.CREATE,
-            entity_type=EntityType.COMPONENT,
+            entity_type=EntityType.Component,
             entity_id=5,
             details={'name': 'Arduino Uno', 'quantity': 10}
         )
