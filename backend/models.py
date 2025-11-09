@@ -114,7 +114,7 @@ class Request(db.Model):
     student_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
     component_id = db.Column(db.Integer, db.ForeignKey('components.id'), nullable=False, index=True)
     quantity = db.Column(db.Integer, nullable=False)
-    status = db.Column(SQLEnum(RequestStatus), nullable=False, default=RequestStatus.PENDING, index=True)
+    status = db.Column(SQLEnum(RequestStatus), nullable=False, default=RequestStatus.Pending, index=True)
     rejection_reason = db.Column(db.Text)
     requested_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     processed_at = db.Column(db.DateTime)
