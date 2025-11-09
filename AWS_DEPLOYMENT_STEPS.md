@@ -128,7 +128,7 @@ cd lablink
 
 ```bash
 # Create .env file
-nano .env
+  nano .env
 ```
 
 **Add the following (replace with your actual values):**
